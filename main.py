@@ -2,9 +2,6 @@ from os import environ
 
 import databases
 from fastapi import FastAPI
-from sqlalchemy import select
-
-from models.employee import employees_table
 
 DB_USER = environ.get("DB_USER", "postgres")
 DB_PASSWORD = environ.get("DB_PASSWORD", "root")
@@ -29,17 +26,3 @@ async def shutdown():
     await database.disconnect()
 
 
-@app.get("/")
-async def read_root():
-    query = (
-        select(
-            [
-                employees_table.c.id,
-                employees_table.c.email,
-                employees_table.c.firstName,
-                employees_table.c.lastName,
-                employees_table.c.experience,
-            ]
-        )
-    )
-    return await database.fetch_all(query)
