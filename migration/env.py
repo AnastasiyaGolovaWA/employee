@@ -12,7 +12,7 @@ from models.employee import Base
 # add current path to PYTHONPATH, otherwise app module will not be found when alembic executing
 sys.path.append(os.getcwd())
 
-from models import database, employee
+from database import database
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
