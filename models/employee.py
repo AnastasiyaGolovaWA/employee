@@ -6,6 +6,7 @@ from database.database import Base
 
 
 class EmployeeDict(TypedDict):
+    id: int
     firstName: str
     lastName: str
     email: str
@@ -23,5 +24,5 @@ class Employee(Base):
 
     @property
     def serialize(self) -> EmployeeDict:
-        return {"firstName": self.firstName, "lastName": self.lastName, "email": self.email,
+        return {"id": self.id, "firstName": self.firstName, "lastName": self.lastName, "email": self.email,
                 "experience": self.experience}
