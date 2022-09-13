@@ -1,13 +1,14 @@
-import sqlalchemy
+from sqlalchemy.ext.declarative import declarative_base
 
-metadata = sqlalchemy.MetaData()
+from sqlalchemy import Column, Integer, String
 
-employees_table = sqlalchemy.Table(
-    "employees",
-    metadata,
-    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
-    sqlalchemy.Column("email", sqlalchemy.String(40), unique=True, index=True),
-    sqlalchemy.Column("firstName", sqlalchemy.String(100)),
-    sqlalchemy.Column("lastName", sqlalchemy.String(100)),
-    sqlalchemy.Column("experience", sqlalchemy.Integer),
-)
+Base = declarative_base()
+
+
+class Employee(Base):
+    __tablename__ = "employee"
+    id = Column(Integer, primary_key=True, index=True)
+    firstName = Column(String, nullable=False)
+    lastName = Column(String, nullable=False)
+    email = Column(String, nullable=False)
+    experience = Column(Integer, nullable=False)

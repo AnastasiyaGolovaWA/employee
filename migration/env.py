@@ -7,6 +7,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
+from models.employee import Base
+
 # add current path to PYTHONPATH, otherwise app module will not be found when alembic executing
 sys.path.append(os.getcwd())
 
@@ -29,8 +31,8 @@ fileConfig(config.config_file_name)
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-target_metadata = [employee.metadata]
+target_metadata = Base.metadata
+#target_metadata = [employee.metadata]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
