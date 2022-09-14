@@ -51,3 +51,11 @@ def create_employee(employee: EmployeeBase, session: Session = Depends(get_sessi
 def delete_employee(employee_id: int, session: Session = Depends(get_session)):
     crud.delete_employee(session, employee_id)
     return None
+
+
+@router.put("/employees/{employee_id}", response_model=EmployeeDetailsModel)
+def update_employee(employee_id: int, data: EmployeeBase, session: Session = Depends(get_session)):
+    employee = crud.update_employee(session, employee_id, data)
+    if employee is None:
+        raise HTTPException(status_code=404)
+    return employee
