@@ -45,3 +45,9 @@ def create_employee(employee: EmployeeBase, session: Session = Depends(get_sessi
     if db_employee:
         raise HTTPException(status_code=400, detail="Employee already created")
         return crud.create_employee(session=session, employee=employee)
+
+
+@router.delete("/employees/{employee_id}", status_code=204)
+def delete_employee(employee_id: int, session: Session = Depends(get_session)):
+    crud.delete_employee(session, employee_id)
+    return None

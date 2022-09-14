@@ -26,3 +26,9 @@ def create_employee(session: Session, employee: EmployeeBase):
 
 def get_employee_by_email(session: Session, email: str):
     return session.query(Employee).filter(Employee.email == email).first()
+
+
+def delete_employee(session: Session, employee_id: int):
+    session.query(Employee).filter(Employee.id == employee_id).delete()
+    session.commit()
+    return None
