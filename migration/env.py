@@ -7,6 +7,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
+from environment.environment import DB_USER, DB_PASSWORD, DB_NAME, DB_HOST
 from models.employee import Base
 
 # add current path to PYTHONPATH, otherwise app module will not be found when alembic executing
@@ -19,10 +20,10 @@ from database import database
 config = context.config
 
 section = config.config_ini_section
-config.set_section_option(section, "DB_USER", database.DB_USER)
-config.set_section_option(section, "DB_PASS", database.DB_PASSWORD)
-config.set_section_option(section, "DB_NAME", database.DB_NAME)
-config.set_section_option(section, "DB_HOST", database.DB_HOST)
+config.set_section_option(section, "DB_USER", DB_USER)
+config.set_section_option(section, "DB_PASS", DB_PASSWORD)
+config.set_section_option(section, "DB_NAME", DB_NAME)
+config.set_section_option(section, "DB_HOST", DB_HOST)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

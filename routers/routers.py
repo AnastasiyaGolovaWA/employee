@@ -20,7 +20,7 @@ def get_session():
 
 @router.get("/employees/{firstName}", response_model=EmployeeDetailsModel)
 def read_item(firstName: str, session: Session = Depends(get_session)):
-    item = crud.get_employee_by_name(session=session, firstName=firstName)
+    item = crud.get_employee_by_firstname(session=session, firstName=firstName)
     if item is None:
         raise HTTPException(status_code=404, detail="Item not found")
     return item.serialize
