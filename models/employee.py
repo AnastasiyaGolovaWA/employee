@@ -1,16 +1,6 @@
-from typing import TypedDict
-
 from sqlalchemy import Column, Integer, String
 
 from database.database import Base
-
-
-class EmployeeDict(TypedDict):
-    id: int
-    firstName: str
-    lastName: str
-    email: str
-    experience: int
 
 
 class Employee(Base):
@@ -21,8 +11,3 @@ class Employee(Base):
     lastName = Column(String, nullable=False)
     email = Column(String, nullable=False)
     experience = Column(Integer, nullable=False)
-
-    @property
-    def serialize(self) -> EmployeeDict:
-        return {"id": self.id, "firstName": self.firstName, "lastName": self.lastName, "email": self.email,
-                "experience": self.experience}

@@ -14,3 +14,6 @@ class EmployeeDetailsModel(EmployeeBase):
     lastName: str
     email: str
     experience: int
+
+    class Config:
+        orm_mode = True
