@@ -3,10 +3,10 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from database.database import SessionLocal, engine
-from models import employee
-from schemas.schemas import EmployeeDetailsModel, EmployeeBase
-from utils import crud
+from app.database.database import engine, SessionLocal
+from app.models import employee
+from app.schemas.schemas import EmployeeDetailsModel, EmployeeBase
+from app.utils import crud
 
 employee.Base.metadata.create_all(bind=engine)
 router = APIRouter()

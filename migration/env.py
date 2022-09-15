@@ -7,13 +7,11 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from environment.environment import DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT
-from models.employee import Base
+from app.database.database import Base
+from app.environment.environment import DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT
 
 # add current path to PYTHONPATH, otherwise app module will not be found when alembic executing
 sys.path.append(os.getcwd())
-
-from database import database
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -34,7 +32,9 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 target_metadata = Base.metadata
-#target_metadata = [employee.metadata]
+
+
+# target_metadata = [employee.metadata]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

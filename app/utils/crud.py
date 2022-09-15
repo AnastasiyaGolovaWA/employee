@@ -2,8 +2,8 @@ from typing import List
 
 from sqlalchemy.orm import Session
 from typing import Union
-from models.employee import Employee
-from schemas.schemas import EmployeeBase
+from app.models.employee import Employee
+from app.schemas.schemas import EmployeeBase
 
 
 def get_employee_by_firstname(session: Session, firstname: str) -> Employee:
