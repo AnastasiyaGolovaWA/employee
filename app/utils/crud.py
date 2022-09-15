@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from typing import Union
 from app.models.employee import Employee
 from app.schemas.schemas import EmployeeBase
+from app.schemas.schemas import EmployeeDetailsModel
 
 
 def get_employee_by_firstname(session: Session, firstname: str) -> Employee:
@@ -20,8 +21,7 @@ def create_employee(session: Session, employee: EmployeeBase):
                            experience=employee.experience)
     session.add(db_employee)
     session.commit()
-    session.refresh(db_employee)
-    return db_employee
+    return EmployeeDetailsModel.from_orm(db_employee)
 
 
 def get_employee_by_email(session: Session, email: str):

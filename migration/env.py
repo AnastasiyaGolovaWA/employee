@@ -1,40 +1,28 @@
-import os
-import sys
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-
-from app.database.database import Base
-from app.environment.environment import DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT
-
-# add current path to PYTHONPATH, otherwise app module will not be found when alembic executing
-sys.path.append(os.getcwd())
+from app.database.database import Base, SQLALCHEMY_DATABASE_URI
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
-section = config.config_ini_section
-config.set_section_option(section, "DB_USER", DB_USER)
-config.set_section_option(section, "DB_PASS", DB_PASSWORD)
-config.set_section_option(section, "DB_NAME", DB_NAME)
-config.set_section_option(section, "DB_HOST", DB_HOST)
-config.set_section_option(section, "DB_PORT", DB_PORT)
-
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
-fileConfig(config.config_file_name)
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
+# target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
 
-
-# target_metadata = [employee.metadata]
+assert SQLALCHEMY_DATABASE_URI is not None, "Set SQLALCHEMY_DATABASE_URI environment variable."
+config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URI)
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -42,7 +30,7 @@ target_metadata = Base.metadata
 # ... etc.
 
 
-def run_migrations_offline():
+def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
 
     This configures the context with just a URL
@@ -66,7 +54,7 @@ def run_migrations_offline():
         context.run_migrations()
 
 
-def run_migrations_online():
+def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
 
     In this scenario we need to create an Engine

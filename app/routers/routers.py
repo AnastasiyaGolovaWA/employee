@@ -44,6 +44,7 @@ def create_employee(employee: EmployeeBase, session: Session = Depends(get_sessi
     db_employee = crud.get_employee_by_email(session, email=employee.email)
     if db_employee:
         raise HTTPException(status_code=400, detail="Employee already created")
+    else:
         return crud.create_employee(session=session, employee=employee)
 
 
