@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "employee"
+version = "0.1.0"
+description = ""
+authors = [" "]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+alembic="^1.8.1"
+fastapi="^0.60.1"
+pydantic="^1.5.1"
+requests="^2.24.0"
+SQLAlchemy="^1.3.13"
+uvicorn="^0.11.7"
+psycopg2="^2.9.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core&gt;=1.0.0"]
+build-backend = "poetry.core.masonry.api"
