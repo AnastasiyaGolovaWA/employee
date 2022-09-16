@@ -1,8 +1,0 @@
-alembic==1.8.1
-fastapi==0.60.1
-pydantic==1.5.1
-pytest==6.0.0
-requests==2.24.0
-SQLAlchemy==1.3.13
-uvicorn==0.11.7
-psycopg2==2.9.3
