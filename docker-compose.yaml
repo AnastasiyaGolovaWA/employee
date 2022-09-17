@@ -1,0 +1,41 @@
+version: "3.6"
+
+
+services:
+
+  employee-db:
+    image: postgres
+    container_name: employee-db
+    restart: unless-stopped
+    ports:
+      - 5437:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: "${DB_NAME}"
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    env_file:
+      - .env
+    networks:
+      employee-network:
+
+  employee-backend:
+    container_name: employee-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5438:5438
+    networks:
+      employee-network:
+    env_file:
+      - .env
+
+volumes:
+  db-data: 
+
+networks:
+  employee-network:
+      name: employee-network
+
