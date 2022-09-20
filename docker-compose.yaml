@@ -24,7 +24,7 @@ services:
     container_name: employee-backend
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: postgres/Dockerfile
     ports:
       - 5438:5438
     networks:
