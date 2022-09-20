@@ -7,7 +7,7 @@ class EmployeeBase(BaseModel):
     firstName: Optional[str] = 'firstName'
     lastName: Optional[str] = 'lastName'
     email: Optional[str] = ''
-    experience: Optional[int] = '0'
+    experience: Optional[int] = 0
 
 
 class EmployeeDetailsModel(EmployeeBase):
@@ -19,4 +19,4 @@ class EmployeeDetailsModel(EmployeeBase):
 
     class Config:
         orm_mode = True
-        validate_assignment = True
+
