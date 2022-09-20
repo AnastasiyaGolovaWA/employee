@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.database.database import engine, SessionLocal
 from app.models import employee
 from app.schemas.schemas import EmployeeDetailsModel, EmployeeBase
-from app.utils import crud
+from app.services import crud
 
 employee.Base.metadata.create_all(bind=engine)
 router = APIRouter()
