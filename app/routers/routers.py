@@ -4,20 +4,13 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.database.database import engine, SessionLocal
+from app.functions import get_session
 from app.models import employee
 from app.schemas.schemas import EmployeeDetailsModel, EmployeeBase
 from app.services import crud
 
 employee.Base.metadata.create_all(bind=engine)
 router = APIRouter()
-
-
-def get_session():
-    session = SessionLocal()
-    try:
-        yield session
-    finally:
-        session.close()
 
 
 @router.get("/employees/{firstName}", response_model=EmployeeDetailsModel)
