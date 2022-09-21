@@ -64,3 +64,24 @@ def test_invalid_firstname():
     assert response.json() == {
         "detail": "employee not found"
     }
+
+
+def test_endpoints_with_default_values():
+    response_create = client.post("/employees/", json={
+        "email": "testtest@gmail.com"
+    })
+    obj = response_create.json()
+    assert response_create.status_code == 200
+
+    response_update = client.put(f"/employees/{obj['id']}", json={
+        "firstName": "firstNameUpdateTest",
+        "lastName": "lastNameUpdateTest",
+        "email": "test@gmail.com",
+        "experience": 10
+    })
+
+    assert response_update.status_code == 200
+
+    response_delete = client.delete(f"/employees/{obj['id']}")
+
+    assert response_delete.status_code == 204
