@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.database.database import engine, SessionLocal
+from app.database.database import engine
 from app.functions import get_session
 from app.models import employee
 from app.schemas.schemas import EmployeeDetailsModel, EmployeeBase
