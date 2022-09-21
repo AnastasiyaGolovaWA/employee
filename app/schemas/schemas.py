@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class EmployeeBase(BaseModel):
     firstName: Optional[str] = 'firstName'
     lastName: Optional[str] = 'lastName'
-    email: Optional[str] = ''
+    email: Optional[str] = None
     experience: Optional[int] = 0
 
 
