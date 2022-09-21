@@ -8,6 +8,7 @@ from app.routers.routers import get_session
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+client = TestClient(app)
 
 
 def override_get_session():
@@ -21,9 +22,7 @@ def override_get_session():
 app.dependency_overrides[get_session] = override_get_session
 
 
-def test_crud_methods():
-    client = TestClient(app)
-
+def test_endpoints():
     response_create = client.post("/employees/", json={
         "firstName": "firstName",
         "lastName": "lastName",
@@ -45,3 +44,15 @@ def test_crud_methods():
     response_delete = client.delete(f"/employees/{obj['id']}")
 
     assert response_delete.status_code == 204
+
+
+def test_valid_firstname():
+    response = client.get("/employees/nastya")
+    assert response.status_code == 200
+    assert response.json() == {
+        "firstName": "nastya",
+        "lastName": "golova",
+        "email": "tesemail",
+        "experience": 0,
+        "id": 8
+    }
