@@ -56,3 +56,11 @@ def test_valid_firstname():
         "experience": 0,
         "id": 8
     }
+
+
+def test_invalid_firstname():
+    response = client.get("/employees/invalid")
+    assert response.status_code == 404
+    assert response.json() == {
+        "detail": "employee not found"
+    }
