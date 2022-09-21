@@ -4,4 +4,4 @@ COPY .. /employee
 
 RUN pip install poetry && poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 
-ENTRYPOINT ["./postgres/docker-entrypoint.sh"]
+ENTRYPOINT ["./docker/docker-entrypoint.sh"]
