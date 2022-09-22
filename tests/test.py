@@ -2,11 +2,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from starlette.testclient import TestClient
 
-from app import services
 from app.database.database import SQLALCHEMY_DATABASE_URI
 from app.main import app
 from app.routers.routers import get_session
-from app.services import crud
+from app.services import employee_service
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -91,5 +90,11 @@ def test_endpoints_with_default_values():
 
 def test_find_employee_by_firstname():
     db = next(override_get_session())
-    result = services.crud.get_employee_by_firstname(db, "nastya")
+    result = employee_service.get_employee_by_firstname(db, "nastya")
     assert result.firstName == "nastya"
+
+
+def test_find_employee_by_firstname_err():
+    db = next(override_get_session())
+    result = employee_service.get_employee_by_firstname(db, "nastya")
+    assert result.firstName == "abcdef"
