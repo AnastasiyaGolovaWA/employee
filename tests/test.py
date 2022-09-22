@@ -128,7 +128,7 @@ def test_function(setup_test_data):
 
 
 @pytest.yield_fixture(scope='function')
-def obj_fixture():
+def obj_create():
     db = next(override_get_session())
     employee = EmployeeBase(email="test_test")
     obj = employee_service.create_employee(db, employee)
@@ -136,6 +136,6 @@ def obj_fixture():
     employee_service.delete_employee(db, obj.id)
 
 
-def test_obj_some_field(obj_fixture):
+def test_obj_drop(obj_fixture):
     assert obj_fixture == EmployeeDetailsModel(firstName='firstName', lastName='lastName', email='test_test',
                                                experience=0, id=66)
