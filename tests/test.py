@@ -2,9 +2,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from starlette.testclient import TestClient
 
+from app import Employee
 from app.database.database import SQLALCHEMY_DATABASE_URI
 from app.main import app
 from app.routers.routers import get_session
+from app.schemas.schemas import EmployeeBase
 from app.services import employee_service
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
@@ -98,3 +100,17 @@ def test_find_employee_by_firstname_err():
     db = next(override_get_session())
     result = employee_service.get_employee_by_firstname(db, "nastya")
     assert result.firstName == "abcdef"
+
+
+def test_create_employee():
+    db = next(override_get_session())
+    employee = EmployeeBase(email="test_test")
+    result = employee_service.create_employee(db, employee)
+    assert result.email == "test_test"
+
+
+def test_update_employee():
+    db = next(override_get_session())
+    employee = EmployeeBase(firstName="test_test_firstname", email="test_test")
+    result = employee_service.update_employee(db, 59, employee)
+    assert result.email == "test_test"
