@@ -136,6 +136,6 @@ def obj_create():
     employee_service.delete_employee(db, obj.id)
 
 
-def test_obj_drop(obj_fixture):
-    assert obj_fixture == EmployeeDetailsModel(firstName='firstName', lastName='lastName', email='test_test',
-                                               experience=0, id=66)
+def test_obj_drop(obj_create):
+    assert obj_create == EmployeeDetailsModel(firstName='firstName', lastName='lastName', email='test_test',
+                                              experience=0, id=obj_create.id)
