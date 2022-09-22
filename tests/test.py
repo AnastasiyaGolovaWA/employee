@@ -1,12 +1,12 @@
+import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from starlette.testclient import TestClient
 
-from app import Employee
 from app.database.database import SQLALCHEMY_DATABASE_URI
 from app.main import app
 from app.routers.routers import get_session
-from app.schemas.schemas import EmployeeBase
+from app.schemas.schemas import EmployeeBase, EmployeeDetailsModel
 from app.services import employee_service
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
@@ -114,3 +114,28 @@ def test_update_employee():
     employee = EmployeeBase(firstName="test_test_firstname", email="test_test")
     result = employee_service.update_employee(db, 59, employee)
     assert result.email == "test_test"
+
+
+@pytest.fixture()
+def setup_test_data():
+    test_value = 100
+    return test_value
+
+
+def test_function(setup_test_data):
+    a = 100
+    assert a == setup_test_data
+
+
+@pytest.yield_fixture(scope='function')
+def obj_fixture():
+    db = next(override_get_session())
+    employee = EmployeeBase(email="test_test")
+    obj = employee_service.create_employee(db, employee)
+    yield obj
+    employee_service.delete_employee(db, obj.id)
+
+
+def test_obj_some_field(obj_fixture):
+    assert obj_fixture == EmployeeDetailsModel(firstName='firstName', lastName='lastName', email='test_test',
+                                               experience=0, id=66)
