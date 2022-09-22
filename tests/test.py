@@ -2,9 +2,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from starlette.testclient import TestClient
 
+from app import services
 from app.database.database import SQLALCHEMY_DATABASE_URI
 from app.main import app
 from app.routers.routers import get_session
+from app.services import crud
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -85,3 +87,9 @@ def test_endpoints_with_default_values():
     response_delete = client.delete(f"/employees/{obj['id']}")
 
     assert response_delete.status_code == 204
+
+
+def test_find_employee_by_firstname():
+    db = next(override_get_session())
+    result = services.crud.get_employee_by_firstname(db, "nastya")
+    assert result.firstName == "nastya"
