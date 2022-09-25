@@ -30,7 +30,8 @@ def test_endpoints():
         "firstName": "firstName",
         "lastName": "lastName",
         "email": "testtest@gmail.com",
-        "experience": 5
+        "experience": 5,
+        "region": "Samara"
     })
     obj = response_create.json()
     assert response_create.status_code == 200
@@ -55,9 +56,10 @@ def test_valid_firstname():
     assert response.json() == {
         "firstName": "nastya",
         "lastName": "golova",
-        "email": "tesemail",
-        "experience": 0,
-        "id": 8
+        "email": "email",
+        "experience": 2,
+        "region": "Samara",
+        "id": 3
     }
 
 
@@ -104,27 +106,17 @@ def test_find_employee_by_firstname_err():
 
 def test_create_employee():
     db = next(override_get_session())
-    employee = EmployeeBase(email="test_test")
+    employee = EmployeeBase(firstName='test', lastName='test', email='test_test_test',
+                                              experience=0, region='Samara')
     result = employee_service.create_employee(db, employee)
-    assert result.email == "test_test"
+    assert result.email == "test_test_test"
 
 
 def test_update_employee():
     db = next(override_get_session())
     employee = EmployeeBase(firstName="test_test_firstname", email="test_test")
-    result = employee_service.update_employee(db, 59, employee)
+    result = employee_service.update_employee(db, 3, employee)
     assert result.email == "test_test"
-
-
-@pytest.fixture()
-def setup_test_data():
-    test_value = 100
-    return test_value
-
-
-def test_function(setup_test_data):
-    a = 100
-    assert a == setup_test_data
 
 
 @pytest.yield_fixture(scope='function')
@@ -138,4 +130,4 @@ def obj_create():
 
 def test_obj_drop(obj_create):
     assert obj_create == EmployeeDetailsModel(firstName='firstName', lastName='lastName', email='test_test',
-                                              experience=0, id=obj_create.id)
+                                              experience=0, id=obj_create.id, region='Samara')
