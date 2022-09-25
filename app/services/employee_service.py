@@ -18,7 +18,7 @@ def get_employees(session: Session, skip: int = 0, limit: int = 100) -> List[Emp
 def create_employee(session: Session, employee: EmployeeBase):
     db_employee = Employee(firstName=employee.firstName, lastName=employee.lastName,
                            email=employee.email,
-                           experience=employee.experience)
+                           experience=employee.experience, region=employee.region)
     session.add(db_employee)
     session.commit()
     return EmployeeDetailsModel.from_orm(db_employee)

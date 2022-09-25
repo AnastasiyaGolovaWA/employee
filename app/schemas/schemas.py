@@ -8,6 +8,7 @@ class EmployeeBase(BaseModel):
     lastName: Optional[str] = 'lastName'
     email: Optional[str] = None
     experience: Optional[int] = 0
+    region: Optional[str] = 'Samara'
 
 
 class EmployeeDetailsModel(EmployeeBase):
@@ -16,7 +17,7 @@ class EmployeeDetailsModel(EmployeeBase):
     lastName: str
     email: str
     experience: int
+    region: str
 
     class Config:
         orm_mode = True
-
