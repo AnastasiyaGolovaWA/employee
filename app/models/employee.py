@@ -11,3 +11,4 @@ class Employee(Base):
     lastName = Column(String, nullable=False)
     email = Column(String, nullable=False)
     experience = Column(Integer, nullable=False)
+    region = Column(String, nullable=False)
